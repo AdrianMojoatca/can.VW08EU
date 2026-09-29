@@ -190,6 +190,21 @@ ajunge sa contrazica tabelele.
 
 ## Ce ramane deschis
 
+**Pe VW08EU, in plus fata de lista mostenita de mai jos:**
+
+- **Nimic nu a fost testat pe masina.** 1.00 s-a construit curat pe amindoua
+  platformele si schimbarea a fost verificata prin dezasamblare, dar
+  comportamentul cu usa deschisa in Remote Start nu a fost incercat pe un vehicul.
+- **Folderul `Release/` nu exista inca.** Cind se livreaza efectiv, se asambleaza
+  ca la VW07EU: `.enc`-ul plus fisierele de configurare cu care a fost construit,
+  cite un subfolder pe platforma.
+- **Doua unelte de build nu sint versionate**: `D2DiConfigFile.exe` si
+  `GetSelectedForBatchBuild.exe` din `build/scripts`, excluse deliberat de
+  `core_vw08eu_db3/.gitignore`. Restul uneltelor intra in repo, deci un clone
+  curat produce `.enc` pe DS4; pe DB3 cele doua trebuie copiate manual.
+
+**Mostenite de la VW07EU:**
+
 - **Un `0x000` la butonul de portbagaj.** `func_oem_trunk_start()` cheama tot
   `func_unlock_all_start()`, deci apasarea butonului de portbagaj de pe telecomanda
   OEM produce inca un cadru de trezire in Remote Start, pe amindoua platformele.
