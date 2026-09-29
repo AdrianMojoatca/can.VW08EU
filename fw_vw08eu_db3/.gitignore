@@ -1,0 +1,36 @@
+build/**/db3_build/
+build/**/ds4_build/
+build/**/core_db3_build/
+build/**/fw_db3_build/
+build/out/
+
+*.axf
+*.hex
+*.map
+*.lnp
+*.plg
+*.tra
+*.o
+*.d
+*.crf
+*.dep
+*.uvopt
+*.bak
+
+.DS_Store
+# Build outputs (track source tooling under build/scripts; ignore build artifacts)
+build/*
+!build/scripts/
+!build/out/
+build/out/*
+!build/out/out.bat
+# Keep binaries and transient dumps out of git (tools belong in LFS/artifact storage)
+build/scripts/*.exe
+build/scripts/error.txt
+
+# Keil generated options/dependency/backup files
+*.uvopt
+*.dep
+*.bak
+# transient bench combine artifacts
+/artifacts/

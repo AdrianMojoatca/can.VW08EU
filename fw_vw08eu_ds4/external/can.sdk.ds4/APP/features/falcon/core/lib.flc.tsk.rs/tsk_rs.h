@@ -1,0 +1,92 @@
+/*<#======================================================================#>*/
+/*                          FILE HEADER GOES HERE                           */
+/*<#======================================================================#>*/
+
+/*==========================================================================*/
+// $Id: tsk_rs.h 28089 2014-10-20 09:56:12Z daniel.erhan $
+/*==========================================================================*/
+
+#ifndef __TSK_RS_H__
+#define __TSK_RS_H__
+
+/*==========================================================================*/
+/*                             I N C L U D E S                              */
+/*==========================================================================*/
+#include "device.h" 
+/*==========================================================================*/
+/*      D E F I N E S  -  E N U M E R A T I O N S  -  T Y P E D E F S       */
+/*==========================================================================*/
+
+/*--------------------------------------------------------------------------*/
+
+typedef void (*Tsk_Rs_Func)( Boolean do_shutdown );
+
+/*--------------------------------------------------------------------------*/
+
+typedef enum
+{
+    TSK_RS_GWR_ON    ,  
+    TSK_RS_GWR_OFF   ,
+    TSK_RS_ACC_ON    ,
+    TSK_RS_ACC_OFF   ,
+    TSK_RS_IGN_ON    ,
+    TSK_RS_IGN_OFF   ,
+    TSK_RS_STR_ON    ,
+    TSK_RS_STR_OFF   ,
+    TSK_RS_DOOR_OPEN ,
+    TSK_RS_DOOR_CLOSE,
+}Tsk_Rs_Evt ;  
+
+/*--------------------------------------------------------------------------*/
+
+typedef enum
+{
+    TSK_RS_TAKEOVER_DISABLE     = 0       , 
+    TSK_RS_TAKEOVER_OEM         = 1u << 0 , 
+    TSK_RS_TAKEOVER_AFTERMARKET = 1u << 1 ,
+    TSK_RS_TAKEOVER_SKD         = 1u << 2 ,
+    TSK_RS_SKIP_DOOR_SHUTDOWN   = 1u << 3 
+}Tsk_Rs_Takeover; 
+
+/*--------------------------------------------------------------------------*/
+typedef void( *Tsk_Rs_Pts)(Boolean state);
+
+/*==========================================================================*/
+/*                  F U N C T I O N   P R O T O T Y P E S                   */
+/*==========================================================================*/
+void tsk_rs_init      ( void );
+void tsk_rs_register  ( Tsk_Rs_Evt evt , Tsk_Rs_Func func );
+void tsk_rs_shutdown  ( void );
+void tsk_rs_update_cfg( Tsk_Rs_Takeover takeover_cfg );
+void tsk_rs_oem_disarm( Boolean enabled);
+Boolean tsk_rs_invalid_state( void );
+/*==========================================================================*/
+/*                            V A R I A B L E S                             */
+/*==========================================================================*/
+
+
+/*==========================================================================*/
+/*        I N L I N E   F U N C T I O N S   &   T E M P L A T E S           */
+/*==========================================================================*/
+
+/*==========================================================================*/
+
+
+#if defined(FW_DS4_BUILD)
+#include "core_contract_ds4_boot_handshake.h"
+#define tsk_rs_init()              (core_contract_ds4_boot_api_table_get()->tsk_rs_init_fn())
+#define tsk_rs_register(evt, func) (core_contract_ds4_boot_api_table_get()->tsk_rs_register_fn((uint32_t)(evt),(void*)(func)))
+#define tsk_rs_update_cfg(cfg)     (core_contract_ds4_boot_api_table_get()->tsk_rs_update_cfg_fn((uint32_t)(cfg)))
+/* PORTARE VW08EU 03.09.2026: lipsea rutarea, desi slotul tsk_rs_invalid_state_fn
+   exista in tabela si shim-ul il populeaza deja. Fara ea, versiunea de contract
+   a lui FUNC_PTS_OUT (cea cu garda de viteza) nu se putea linka - de aici
+   scurtatura OUT_5(x) din config_gpio.h, care pierdea garda in tacit.
+   Ca pe DB3, tsk_rs.h:85. Macroul trebuie sa stea DUPA prototipul de la linia
+   62: definit inainte, ar expanda declaratia si ar da eroare de aritate. */
+#define tsk_rs_invalid_state()     (core_contract_ds4_boot_api_table_get()->tsk_rs_invalid_state_fn())
+#endif
+
+#endif
+
+
+

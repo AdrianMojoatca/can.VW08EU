@@ -1,0 +1,29 @@
+; *************************************************************
+; *** Scatter file for THIN FW_DB3 (single-boot, SS4)       ***
+; *************************************************************
+;
+; Single-boot model: CORE boots the RTOS once and stays live, then invokes
+; the FW via the descriptor at 0x28000. The FW does NOT reboot, so it has:
+;   - NO stack region  (runs on CORE's task_main stack)
+;   - NO OS/C heap      (uses CORE's heaps)
+;   - NO vector table   (CORE owns the vector table / VTOR)
+; fw_ram_init copies RW / zeroes ZI manually (no __scatterload).
+;
+; RW_FW MUST match CORE's ER_FW_RAM_RESERVE (0x10004500, size 0xA00).
+;----------------------------------------------------------------------------;
+
+LR_IROM_FW 0x00028000 0x00017F00
+{    ; FW flash window: 0x00028000 .. 0x0003FEFF
+  ER_IROM_FW 0x00028000 0x00017F00
+    {
+      *(FW_DESC, +First)        ; g_fw_descriptor -> base 0x28000
+      *.o (+RO)
+      *(InRoot$$Sections)
+      .ANY (+RO)
+    }
+
+  RW_FW 0x10004500 0x00000A00   ; FW RW/ZI window; MUST match CORE ER_FW_RAM_RESERVE
+    {
+      .ANY (+RW +ZI)
+    }
+}

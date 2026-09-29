@@ -1,0 +1,39 @@
+# Artefacte de build Keil.
+# Atentie: sub build/ nu stau doar artefacte, ci si UNELTELE de build (scripturile
+# de post-build si out.bat, care produc .enc-ul). Fara exceptiile de mai jos, un
+# clone curat compileaza dar NU scoate livrabil. Asa s-a intimplat la clonarea
+# VW08EU din VW07EU: 48 de fisiere au trebuit copiate manual.
+**/build/*
+!**/build/scripts/
+!**/build/out/
+**/build/out/*
+!**/build/out/out.bat
+*.o
+*.crf
+*.d
+*.dep
+*.axf
+*.htm
+*.lnp
+*.map
+*.plg
+*.tra
+*.__i
+*.sct.bak
+project.symdef
+
+# Optiuni de utilizator Keil (se regenereaza, contin cai absolute)
+*.uvopt
+*.uvgui*
+
+# Backup-uri
+*.bak
+*.bak_*
+
+# Artefacte de rulare / audit
+artifacts/
+/out/
+build_logs/
+
+# Fisiere de blocare Office (apar cit timp .xlsx e deschis)
+~$*

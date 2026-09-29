@@ -1,0 +1,64 @@
+/*<#======================================================================#>*/
+/*                          FILE HEADER GOES HERE                           */
+/*<#======================================================================#>*/
+
+/*==========================================================================*/
+// $Id: d2d.h 82 2008-03-21 19:35:35Z martin.bouchard $
+/*==========================================================================*/
+#ifndef __LED_DETECT_H__
+#define __LED_DETECT_H__
+/*==========================================================================*/
+/*                             I N C L U D E S                              */
+/*==========================================================================*/
+#include "device.h"
+/*==========================================================================*/
+/*      D E F I N E S  -  E N U M E R A T I O N S  -  T Y P E D E F S       */
+/*==========================================================================*/
+
+/*==========================================================================*/
+/*                  F U N C T I O N   P R O T O T Y P E S                   */
+/*==========================================================================*/
+
+void    led_detect_started              ( void );
+void    led_detect_done                 ( void );
+void    led_detect_in_progress          ( void );
+void    led_detect_err_can0             ( void );
+void    led_detect_err_can1             ( void );
+void    led_detect_err_invalid_ignition ( void );
+void    led_detect_err_invalid_vin      ( void );
+void    led_detect_err_invalid_bcm      ( void );
+void    led_detect_err_bp_log           ( void );
+void    led_detect_err_bp_timeout       ( void );
+void    led_detect_err_iso1             ( void );
+void    led_detect_err_iso2             ( void );
+void    led_detect_err_mux              ( void );
+void    led_detect_err_all_state_skip   ( void );
+
+/*==========================================================================*/
+/*                            V A R I A B L E S                             */
+/*==========================================================================*/
+
+/*==========================================================================*/
+/*        I N L I N E   F U N C T I O N S   &   T E M P L A T E S           */
+/*==========================================================================*/
+
+/*==========================================================================*/
+
+ /* SS4 Slice 8: route led_detect_* through the table to CORE. */
+#if defined(FW_DB3_BUILD)
+#include "core_contract_db3_boot_handshake.h"
+#define led_detect_started()              (core_contract_db3_boot_api_table_get()->led_detect_started_fn())
+#define led_detect_done()                 (core_contract_db3_boot_api_table_get()->led_detect_done_fn())
+#define led_detect_in_progress()          (core_contract_db3_boot_api_table_get()->led_detect_in_progress_fn())
+#define led_detect_err_can0()             (core_contract_db3_boot_api_table_get()->led_detect_err_can0_fn())
+#define led_detect_err_invalid_ignition() (core_contract_db3_boot_api_table_get()->led_detect_err_invalid_ignition_fn())
+#endif
+
+/* v2.0 VW08EU: rutare prin tabela de API (grupul VW08EU, 25 de sloturi). */
+#if defined(FW_DB3_BUILD)
+#include "core_contract_db3_boot_handshake.h"
+#define led_detect_err_can1()            (core_contract_db3_boot_api_table_get()->led_detect_err_can1_fn())
+#define led_detect_err_invalid_bcm()     (core_contract_db3_boot_api_table_get()->led_detect_err_invalid_bcm_fn())
+#endif /* FW_DB3_BUILD */
+
+#endif

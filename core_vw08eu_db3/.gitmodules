@@ -1,0 +1,3 @@
+[submodule "external/Core_Contract_SDK_DB3"]
+	path = external/Core_Contract_SDK_DB3
+	url = https://github.com/FalconElectronicsProd/can.db3_contract.git

@@ -1,0 +1,59 @@
+# Partea de vehicul pentru VW08EU pe DB3.
+#
+# Sursa: schema originala de instalare DB2 (IGs/DB2_original_scheme.png si
+# IGs/Connectors/Ansamblu_PlugB_PlugC.png), desenele conectoarelor in
+# IGs/Connectors/cut_*.png.
+# ATENTIE: aceste date NU vin din tech sheet - techsheet-ul descrie doar modulul.
+# Daca se schimba ceva la masina, se editeaza AICI, nu in gen_diagram.pl.
+#
+# Blocuri (desenul conectorului):
+#   @ nume bloc | cale imagine | nota (optionala)
+#
+# Borne:
+#   nume bloc | pin vehicul | descriere | conector/pin modul | ancora
+#
+#   ancora = unde intra firul PE desenul conectorului, ca fractii din latimea si
+#   inaltimea imaginii; masurata pe marcajul negru al pinului din schema DB2.
+#   Doua ancore despartite prin ";" = firul se leaga la amindoua (diodele PTS).
+#   Daca fractia x e sub 0.5 firul vine din stinga, altfel din dreapta.
+#   Fara ancora, firul se opreste la lista de sub desen.
+#
+# Ultimul cimp de referinta gol = borna exista in schema originala, dar
+# firmware-ul VW08EU nu o foloseste pe DB3 (se deseneaza gri, neconectata).
+# Prefixul "RS:" = borna vine de la remote starter direct, fara sa treaca prin modul.
+
+@ C Plug at BCM      | IGs/Connectors/cut_c_plug.png
+@ B Plug at BCM      | IGs/Connectors/cut_b_plug.png
+@ PTS Connector      | IGs/Connectors/cut_pts.png
+@ Alimentare vehicul |
+@ Diagnostic (OBD II)| IGs/Connectors/cut_obd.png | folosit de lib-ul de PGM, sarit deocamdata in acest firmware
+
+C Plug at BCM       | 46  | CAN H  Orange/Green   | H1/3  | 0.519,0.384
+C Plug at BCM       | 47  | CAN L  Orange/Brown   | H1/4  | 0.519,0.412
+C Plug at BCM       | 30  | (-) Hazard Switch     | H2/1  | 0.407,0.647
+B Plug at BCM       | 10  | (+) Brake Bypass      | H1/8  | 0.421,0.239
+PTS Connector       | 3,4 | (-) PTS 1 / PTS 2     | H2/2  | 0.010,0.768;0.010,0.897
+Alimentare vehicul  |     | (+) 12 V              | H1/7
+Alimentare vehicul  |     | (+) 12 V              | H1/13
+Alimentare vehicul  |     | (-) Ground            | H1/14
+Diagnostic (OBD II) | 6   | CAN H  Orange/Red     |
+Diagnostic (OBD II) | 14  | CAN L  Orange/Brown   |
+
+# Borna de la REMOTE STARTER direct in masina (nu trece prin modul).
+# In schema DB2, iesirile de Lock si Unlock ale starterului se leaga amindoua
+# in acelasi pin din BCM, cea de Unlock printr-un rezistor.
+C Plug at BCM | 21 | (-) Key Lock  (Lock Output + Unlock Output prin R = 200-250 ohm) | RS:Lock / Unlock Output | 0.407,0.381
+
+# Numele bornelor de pe remote starter, citite din schema DB2. Fara ele se
+# deduc inversind sensul (Output <-> Input), ceea ce nu nimereste mereu.
+$ H2/3  | (-) Door Status Input
+$ H2/4  | (-) Trunk Status Input
+$ H2/5  | (AC) Tach Input
+$ H2/6  | (+) Ignition Input/Output
+$ H2/8  | (+) Brake Status Input
+$ H2/9  | (+) Brake Status Input
+$ H2/10 | (-) Neutral Safety/Handbrake Status Input
+$ H3/7  | (+) Parking Lights Output
+$ H3/8  | (+) Start Output
+$ H3/9  | (+) Ignition Input/Output
+$ H3/10 | (-) GWR (Status)

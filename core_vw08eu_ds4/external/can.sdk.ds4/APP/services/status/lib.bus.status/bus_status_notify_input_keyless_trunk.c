@@ -1,0 +1,43 @@
+/*<#======================================================================#>*/
+/*                          FILE HEADER GOES HERE                           */
+/*<#======================================================================#>*/
+
+/*==========================================================================*/
+// $Id: bus_status_notify_input_keyless_trunk.c 33257 2015-08-19 12:45:49Z martin.bouchard $
+/*==========================================================================*/
+
+/*==========================================================================*/
+/*                             I N C L U D E S                              */
+/*==========================================================================*/
+
+#include "bus_status_private.h"
+
+/*==========================================================================*/
+/*      D E F I N E S  -  E N U M E R A T I O N S  -  T Y P E D E F S       */
+/*==========================================================================*/
+
+/*==========================================================================*/
+/*                  F U N C T I O N   P R O T O T Y P E S                   */
+/*==========================================================================*/
+
+
+/*==========================================================================*/
+/*                            V A R I A B L E S                             */
+/*==========================================================================*/
+
+/*==========================================================================*/
+/*                 F U N C T I O N   D E F I N I T I O N S                  */
+/*==========================================================================*/
+
+void bus_status_notify_input_keyless_trunk (void *arg)
+{
+	/* 15.09.2026: DISARM scos deliberat. In mod normal la trunk release trebuie
+	   sa plece DOAR trunk release; unele masini fac ele disarm cind se deschide
+	   portbagajul, altele nu. Se probeaza pe masina si se decide dupa. Ca sa-l
+	   pui la loc, decomenteaza linia de mai jos - nimic altceva. */
+	//d2d_tx(SET_KEYLESS_DISARM);  // legacy lie being told for SmartStart maybe ?
+ 	d2d_tx(SET_KEYLESS_TRUNK);   // at least tell the truth for those who care
+	bus_status_arm(0);           // this does not really disarm anything
+	                             // it only clears a tamper flags
+                               //	and affects whether a future keyless arm command will be sent on d2d
+}

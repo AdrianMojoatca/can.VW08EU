@@ -1,0 +1,84 @@
+/*<#======================================================================#>*/
+/*                          FILE HEADER GOES HERE                           */
+/*<#======================================================================#>*/
+
+/*==========================================================================*/
+// $Id: per_exec.h 33257 2015-08-19 12:45:49Z martin.bouchard $
+/*==========================================================================*/
+
+#ifndef __PER_EXEC_H__
+#define __PER_EXEC_H__
+
+/*==========================================================================*/
+/*                             I N C L U D E S                              */
+/*==========================================================================*/
+#include "os.h" 
+/*==========================================================================*/
+/*      D E F I N E S  -  E N U M E R A T I O N S  -  T Y P E D E F S       */
+/*==========================================================================*/
+
+//---------------------------------------------------------------------------//
+
+typedef enum
+{
+	//---Do not change the values
+    //---If all functions registered returns PER_EXEC_SLEEP the per_exec_task is releases the wake counter
+    
+    PER_EXEC_SLEEP = 0,  
+    PER_EXEC_WAKE  = 1, 
+
+}Per_Exec_Wake ; 
+
+//---------------------------------------------------------------------------//
+
+typedef void *	Per_Exec_Arg ;
+
+typedef Per_Exec_Wake	(*Per_Exec_Func)( void * , Per_Exec_Arg );	
+
+//---------------------------------------------------------------------------//
+
+#define PER_EXEC_ATOMIC(x)  {  per_exec_critical_enter(); { x ;} per_exec_critical_leave() ; }
+
+
+//---------------------------------------------------------------------------//
+
+
+/*==========================================================================*/
+/*                  F U N C T I O N   P R O T O T Y P E S                   */
+/*==========================================================================*/
+
+void    per_exec_init          ( void );
+
+void    per_exec_register      ( Per_Exec_Func per_exec_func , ...);
+
+Boolean per_exec_critical_enter( void );
+
+void    per_exec_critical_leave( void );
+
+
+/*==========================================================================*/
+/*                            V A R I A B L E S                             */
+/*==========================================================================*/
+
+
+/*==========================================================================*/
+/*        I N L I N E   F U N C T I O N S   &   T E M P L A T E S           */
+/*==========================================================================*/
+
+/*==========================================================================*/
+
+/* v2.0 VW08EU: rutare prin tabela de API (grupul VW08EU, 25 de sloturi). */
+#if defined(FW_DB3_BUILD)
+#include "core_contract_db3_boot_handshake.h"
+/* per_exec_register e declarat variadic, dar unicul apel din VW08EU (scan_init.c:56)
+   ii da un singur argument. Redirectam cu aritate fixa 1, ca sa nu avem nevoie de
+   __VA_ARGS__ - acelasi tipar ca la os_evt_* din os.h. */
+#define per_exec_register(f)             (core_contract_db3_boot_api_table_get()->per_exec_register_fn((void*)(f)))
+#define per_exec_critical_enter()        (core_contract_db3_boot_api_table_get()->per_exec_critical_enter_fn())
+#define per_exec_critical_leave()        (core_contract_db3_boot_api_table_get()->per_exec_critical_leave_fn())
+#endif /* FW_DB3_BUILD */
+
+#endif
+
+
+
