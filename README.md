@@ -24,7 +24,8 @@ VW07EU**, mostenita aici.
 Versiunea de livrare e **`1.00`, fara sufix**. Sufixele `1.00.01` ... `1.00.03`
 au fost build-uri de inginerie si nu ajung pe site.
 
-Amindoua au `detect_pgm()` activ. **PGM-ul scaneaza pe `CAN_DEV_0`, adica pe
+Amindoua au `detect_pgm()` activ, **validat pe masina** - pe amindoua
+platformele si pe amindoua firmware-urile, VW07EU si VW08EU. **PGM-ul scaneaza pe `CAN_DEV_0`, adica pe
 perechea portocalie catre priza OBD II** - nu pe canalul vehiculului - iar in
 techsheet perechea aia e inca marcata `No Connection`. Fara ea legata (OBD II
 pinii 6 si 14), PGM-ul pare stricat din firmware. Detalii in
