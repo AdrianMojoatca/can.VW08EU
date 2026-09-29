@@ -12,13 +12,14 @@ facuta pe 28.09.2026. Codul e identic, cu o singura diferenta de comportament:
 
 | platforma | livrabil | stare |
 |---|---|---|
-| DB3 / 403 | `403.vw08eu.1_00.enc` | construit, **netestat pe masina** |
-| DS4 / 933 | `933.vw08eu.1_00.enc` | construit, **netestat pe masina** |
+| DB3 / 403 | `403.vw08eu.1_00.enc` | **RELEASE**, validat pe masina |
+| DS4 / 933 | `933.vw08eu.1_00.enc` | **RELEASE**, validat pe masina |
 
-Codul de baza vine insa dintr-un firmware validat: VW07EU a trecut testele pe
-masina pe 23-24.09.2026 pe amindoua platformele. Diferenta dintre cele doua e
-o singura linie, deci ce urmeaza mai jos - portarea, defectele si reparatiile -
-descrie **istoria lui VW07EU**, mostenita aici.
+Amindoua au trecut testele pe masina, confirmat pe 29.09.2026. Codul de baza era
+oricum validat: VW07EU a trecut pe masina pe 23-24.09.2026, tot pe amindoua
+platformele. Diferenta dintre cele doua firmware-uri e o singura linie, deci ce
+urmeaza mai jos - portarea, defectele si reparatiile - descrie **istoria lui
+VW07EU**, mostenita aici.
 
 Versiunea de livrare e **`1.00`, fara sufix**. Sufixele `1.00.01` ... `1.00.03`
 au fost build-uri de inginerie si nu ajung pe site.
@@ -192,9 +193,6 @@ ajunge sa contrazica tabelele.
 
 **Pe VW08EU, in plus fata de lista mostenita de mai jos:**
 
-- **Nimic nu a fost testat pe masina.** 1.00 s-a construit curat pe amindoua
-  platformele si schimbarea a fost verificata prin dezasamblare, dar
-  comportamentul cu usa deschisa in Remote Start nu a fost incercat pe un vehicul.
 - **Folderul `Release/` nu exista inca.** Cind se livreaza efectiv, se asambleaza
   ca la VW07EU: `.enc`-ul plus fisierele de configurare cu care a fost construit,
   cite un subfolder pe platforma.

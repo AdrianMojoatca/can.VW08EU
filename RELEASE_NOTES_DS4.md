@@ -7,12 +7,11 @@ descrisa mai jos.
 > **Ce urmeaza dupa sectiunea VW08EU e istoricul mostenit de la VW07EU.** E
 > pastrat fiindca explica de ce arata codul asa, dar acele teste, build-uri si
 > iesiri pe masina s-au facut pe **VW07EU**, nu pe VW08EU. Numele de livrabile de
-> acolo sint ale lui VW07EU si au ramas ca atare. Nimic din VW08EU nu a fost inca
-> testat pe masina.
+> acolo sint ale lui VW07EU si au ramas ca atare.
 
 ---
 
-## v1.00 — VW08EU, primul release (2026-09-29)
+## v1.00 — VW08EU, primul release, VALIDAT PE MASINA (2026-09-29)
 
 **Livrabile: `933.vw08eu.1_00.enc` (591.763 B) si `403.vw08eu.1_00.enc`
 (243.058 B).**
@@ -54,6 +53,9 @@ spus nimic - se schimba doar o constanta - iar `tsk_rs_update_cfg` nu apare in
 `.map`-ul de FW, fiindca sta in CORE. Felia de FW a ramas identica intre 1.00.03
 si 1.00 (17396 B pe DS4, 17468 B pe DB3), ceea ce confirma ca la scoaterea
 sufixului s-a schimbat doar sirul de versiune.
+
+**Testat pe masina, amindoua platformele, OK** - confirmat de Adrian pe
+29.09.2026.
 
 ---
 
