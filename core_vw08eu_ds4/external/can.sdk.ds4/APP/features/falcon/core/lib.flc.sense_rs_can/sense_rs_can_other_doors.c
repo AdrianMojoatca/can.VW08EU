@@ -55,7 +55,9 @@ void sense_other_doors( Boolean instant_level )
         door.bit.front_pass  = get_other_door_status();
 		door.bit.rear_driver = get_other_door_status();
 		door.bit.rear_pass   = get_other_door_status();
-					
+
+		cmd_q_insert( get_other_door_status() ? INPUT_OTHER_DOOR_STATUS_OPEN : INPUT_OTHER_DOOR_STATUS_CLOSE , SENSE_RS_CAN_TIMEOUT_CMD_Q );
+
 	    TRACE_SENSE_RS_CAN("\n\r[OTHER DOOR %s]\n\r" , get_other_door_status() ? "OPEN":"CLOSE" );	              
 
 		if( get_other_door_status() )

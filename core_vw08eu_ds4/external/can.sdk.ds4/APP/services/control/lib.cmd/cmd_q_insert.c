@@ -176,8 +176,8 @@ Boolean cmd_q_insert (Cmd cmd, TskTimeout timeout)
 		case INPUT_TRUNK_STATUS_CLOSE: evt_notify(SET_TRUNK_CLOSE); return TRUE;
 		case INPUT_IGN_STATUS_ON: evt_notify(SET_IGN_ON); return TRUE;
 		case INPUT_IGN_STATUS_OFF: evt_notify(SET_IGN_OFF); return TRUE;
-		case INPUT_ALL_DOOR_STATUS_OPEN: evt_notify(SET_OTHER_OPEN); return TRUE;
-		case INPUT_ALL_DOOR_STATUS_CLOSE: evt_notify(SET_OTHER_CLOSE); return TRUE;
+		// VW09EU: INPUT_ALL_DOOR_* merge direct in coada (default), ca in DB2. Prin
+		// evt_notify(SET_OTHER_*) usa soferului scria si starea "celelalte usi".
 		case INPUT_GLOWPLUG_STATUS_ON: evt_notify(SET_GLOWPLUG_ON); return TRUE;
 		case INPUT_GLOWPLUG_STATUS_OFF: evt_notify(SET_GLOWPLUG_OFF); return TRUE;
 		case INPUT_SENSOR_TRIGGER: evt_notify(FN_ALARM_TRIGGERED); return TRUE;

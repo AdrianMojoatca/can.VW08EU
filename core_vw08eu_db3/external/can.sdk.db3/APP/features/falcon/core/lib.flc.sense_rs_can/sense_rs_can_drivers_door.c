@@ -55,7 +55,9 @@ void sense_driver_door( Boolean instant_level )
 		TRACE("\r\nINSIDE SENSE DRIVER DOOR\r\n\r\n");		
 
 		door.bit.front_driver = get_driver_door_status();
-					
+
+		cmd_q_insert( get_driver_door_status() ? INPUT_DRIVER_DOOR_STATUS_OPEN : INPUT_DRIVER_DOOR_STATUS_CLOSE , SENSE_RS_CAN_TIMEOUT_CMD_Q );
+
 		TRACE("\n\r[DRIVER DOOR %s]\n\r" , get_driver_door_status() ? "OPEN":"CLOSE" );					                
 		
 		if( get_driver_door_status() )

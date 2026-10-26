@@ -1,7 +1,8 @@
 #ifndef __BUILD_IDENTITY_H__
 #define __BUILD_IDENTITY_H__
 
-/* RELEASE 29.09.2026: versiunea de livrare e "1.00", fara sufix de etapa.
+/* RELEASE 1.00: 29.09.2026. RELEASE 1.01: 26.10.2026 (usa sofer / alte usi pe D2D).
+   Versiunea de livrare e "1.01", fara sufix de etapa.
    Sufixele 1.00.01 ... 1.00.03 au fost build-uri de inginerie, pentru banc; ele
    NU ajung pe site.
    Numele .enc se deriva de aici, cu punctele inlocuite de underscore:
@@ -22,11 +23,11 @@
 
 #if defined(CORE_DB3_BUILD)
 #define BUILD_FW_NAME       "VW08EU"
-#define BUILD_FW_VERSION    "1.00"      
+#define BUILD_FW_VERSION    "1.01"      
 #define BUILD_FW_INFO       "CORE split image"
 #else
 #define BUILD_FW_NAME       "VW08EU"
-#define BUILD_FW_VERSION    "1.00"
+#define BUILD_FW_VERSION    "1.01"
 #define BUILD_FW_INFO       "FW split image"
 #endif
 

@@ -98,6 +98,10 @@ typedef enum
     INPUT_TRUNK_STATUS_CLOSE              =  70, // 0x046                                  
     INPUT_ALL_DOOR_STATUS_OPEN            =  71, // 0x047
     INPUT_ALL_DOOR_STATUS_CLOSE           =  72, // 0x048                                                  
+    INPUT_DRIVER_DOOR_STATUS_OPEN         =  73, // 0x049  VW09EU: D2D SET_DRIVER_* ca in DB2
+    INPUT_DRIVER_DOOR_STATUS_CLOSE        =  74, // 0x04A
+    INPUT_OTHER_DOOR_STATUS_OPEN          =  75, // 0x04B  VW09EU: D2D SET_OTHER_* ca in DB2
+    INPUT_OTHER_DOOR_STATUS_CLOSE         =  76, // 0x04C
     INPUT_GLOWPLUG_STATUS_ON              =  77, // 0x04D
     INPUT_GLOWPLUG_STATUS_OFF             =  78, // 0x04E                           
     INPUT_SENSOR_TRIGGER                  =  79, // 0x04F

@@ -11,6 +11,36 @@ descrisa mai jos.
 
 ---
 
+## v1.01 - VW08EU, usa sofer / celelalte usi separat pe D2D (2026-10-26)
+
+**Livrabile: `403.vw08eu.1_01.enc` (243.262 B) si `933.vw08eu.1_01.enc`
+(591.809 B).** PGM activ (`DEBUG_SKIP_PGM 0`, `detect_pgm()` chemat in FW pe
+amindoua platformele), ca in 1.00. **Validat de Adrian (26.10.2026).**
+
+Aceeasi reparatie ca in VW07EU 1.01 (`75c2b30` din `can.vw07eu`) si VW09EU 1.00.05;
+fisierele erau identice, patch aplicat 1:1. Diferenta VW08EU (fara shutdown pe usa
+in Remote Start, `fw_init.c`) nu e atinsa: TKE asculta tot `INPUT_ALL_DOOR_STATUS_OPEN`,
+iar `fw_options_set` are in continuare `MOVS r0,#8` (TSK_RS_SKIP_DOOR_SHUTDOWN).
+
+Problema (DB3 si DS4): D2D trimitea mereu `SET_OTHER_OPEN/CLOSE`, indiferent de
+usa; `SET_DRIVER_*` nu pleca niciodata. Reparatie, ca in DB2:
+- `cmd.h` (CORE si FW, ambele platforme): `INPUT_DRIVER_DOOR_STATUS_OPEN/CLOSE` = 73/74,
+  `INPUT_OTHER_DOOR_STATUS_OPEN/CLOSE` = 75/76 (numere libere).
+- `sense_driver_door()` / `sense_other_doors()`: `cmd_q_insert` cu comanda per usa.
+- `bus_status_init.c`: OTHER -> `SET_OTHER_*`, DRIVER -> `SET_DRIVER_*`.
+  `INPUT_ALL_DOOR_*` ramine pentru alarma, EIPS, TKE etc., dar nu mai pleaca pe D2D.
+- **Numai DS4** (`cmd_q_insert` cu `switch`): `INPUT_ALL_DOOR_*` merge direct in coada,
+  nu prin `evt_notify(SET_OTHER_*)`, care scria `other_door_data` si la usa soferului.
+
+Verificat in `core_db3_release.axf` si `core_ds4_release.axf`: `MOVS r0,#0x49/0x4A`
+(sofer) si `#0x4B/0x4C` (alte usi) inainte de `BL cmd_q_insert`.
+
+**Test (OK):** usa sofer -> `SET_DRIVER_*`; alta usa -> `SET_OTHER_*`; sofer
+deschisa + alta usa -> fiecare isi trimite evenimentul; pe DS4, doar usa soferului
+NU trebuie sa dea `SET_OTHER_CLOSE`; in Remote Start usa deschisa tot NU opreste motorul.
+
+---
+
 ## v1.00 — VW08EU, primul release, VALIDAT PE MASINA (2026-09-29)
 
 **Livrabile: `933.vw08eu.1_00.enc` (591.763 B) si `403.vw08eu.1_00.enc`

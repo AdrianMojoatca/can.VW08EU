@@ -12,8 +12,10 @@ facuta pe 28.09.2026. Codul e identic, cu o singura diferenta de comportament:
 
 | platforma | livrabil | stare |
 |---|---|---|
-| DB3 / 403 | `403.vw08eu.1_00.enc` | **RELEASE**, validat pe masina |
-| DS4 / 933 | `933.vw08eu.1_00.enc` | **RELEASE**, validat pe masina |
+| DB3 / 403 | `403.vw08eu.1_01.enc` | **RELEASE 1.01**, validat 26.10.2026: usa sofer / alte usi separat pe D2D (ca VW07EU 1.01), PGM activ |
+| DS4 / 933 | `933.vw08eu.1_01.enc` | **RELEASE 1.01**, validat 26.10.2026: usa sofer / alte usi separat pe D2D (ca VW07EU 1.01), PGM activ |
+| DB3 / 403 | `403.vw08eu.1_00.enc` | **RELEASE 1.00**, validat pe masina |
+| DS4 / 933 | `933.vw08eu.1_00.enc` | **RELEASE 1.00**, validat pe masina |
 
 Amindoua au trecut testele pe masina, confirmat pe 29.09.2026. Codul de baza era
 oricum validat: VW07EU a trecut pe masina pe 23-24.09.2026, tot pe amindoua
