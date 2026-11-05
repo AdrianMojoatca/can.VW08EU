@@ -23,11 +23,11 @@
 
 #if defined(CORE_DB3_BUILD)
 #define BUILD_FW_NAME       "VW08EU"
-#define BUILD_FW_VERSION    "1.01"      
+#define BUILD_FW_VERSION    "1.02"      
 #define BUILD_FW_INFO       "CORE split image"
 #else
 #define BUILD_FW_NAME       "VW08EU"
-#define BUILD_FW_VERSION    "1.01"
+#define BUILD_FW_VERSION    "1.02"
 #define BUILD_FW_INFO       "FW split image"
 #endif
 

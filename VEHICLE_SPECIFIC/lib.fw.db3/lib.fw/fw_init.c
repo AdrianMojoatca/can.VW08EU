@@ -302,11 +302,11 @@ void fw_init( void )
 
 	detect_car_search();
 
-	cfg.can_dev_id = car.bits.can1_detected ? CAN_DEV_FUNC_SENSE : CAN_DEV_COUNT ;
+	cfg.can_dev_id = VEHICLE_CAN_DETECTED ? CAN_DEV_FUNC_SENSE : CAN_DEV_COUNT ;	// 1.02: din alias, ca pe DS4
 
 	if( cfg.can_dev_id != CAN_DEV_COUNT )
 	{
-		func_init( &cfg, car.bits.can0_detected ? TRUE : FALSE );
+		func_init( &cfg, OBD_CAN_DETECTED ? TRUE : FALSE );	// 1.02: canalul OBD din alias, nu can0 fix
 
 		fw_options_set();
 

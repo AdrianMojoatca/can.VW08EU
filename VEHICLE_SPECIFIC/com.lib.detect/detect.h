@@ -60,11 +60,22 @@ typedef enum
    mai multe locuri scriau CAN_DEV_1 direct, ocolind aliasul primit ca parametru
    (sense_init, detect_ign_search, detect_init_nvfs, trei fisiere func). Pe DB2 si
    DB3 valorile coincideau, deci nu se vedea nimic; orice mutare de canal le lasa
-   insa in urma, in tacere. Acum toate trec prin CAN_DEV_VEHICLE. */
-#define CAN_DEV_VEHICLE       CAN_DEV_1
-#define VEHICLE_CAN_DETECTED  (car.bits.can1_detected)
+   insa in urma, in tacere. Acum toate trec prin CAN_DEV_VEHICLE.
 
-#define CAN_DEV_OBD         CAN_DEV_0
+   VW08EU 1.02 (05.11.2026, ca VW07EU 1.02) - CAN-URI INVERSATE.
+   In manualul de instalare pozele cu conexiunile au CAN-urile inversate, iar
+   manualul nu se reface. Firmware-ul se adapteaza pozelor: magistrala
+   vehiculului (BCM) trece pe CAN_DEV_0 = perechea portocalie (Orange/Green,
+   Orange/Brown), OBD-ul si scanarea PGM trec pe CAN_DEV_1 = Tan / Tan-Black.
+   Numai aliasurile de aici se schimba; toate celelalte locuri trec prin ele.
+   ATENTIE: CAN_DEV_0 e pe transceiverul FT (CAN_DEV_0_FT_SW = 1, 500K), iar
+   trezirea din sleep pe acest canal se armeaza in CORE altfel decit pe HS
+   (can_usr_wake.c) - de verificat pe banc. */
+#define CAN_DEV_VEHICLE       CAN_DEV_0
+#define VEHICLE_CAN_DETECTED  (car.bits.can0_detected)
+
+#define CAN_DEV_OBD         CAN_DEV_1
+#define OBD_CAN_DETECTED    (car.bits.can1_detected)
 #define CAN_DEV_FUNC_SENSE  CAN_DEV_VEHICLE
 #define CAN_DEV_DET_PGM     CAN_DEV_VEHICLE
 #define CAN_DEV_DET_IGN     CAN_DEV_VEHICLE

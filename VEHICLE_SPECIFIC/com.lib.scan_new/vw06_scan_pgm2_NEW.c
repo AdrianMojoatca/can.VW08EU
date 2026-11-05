@@ -12,6 +12,7 @@
 #include "vw06_scan_NEW.h"
 #include "scan.h"
 #include "scan_manager.h"
+#include "detect.h"
 #include <string.h>
 /*==========================================================================*/
 /*      D E F I N E S  -  E N U M E R A T I O N S  -  T Y P E D E F S       */
@@ -101,7 +102,8 @@ Boolean vw06_scan_NEW_pgm2( Can_Dev_Id dev_id )
     
     pgm_data->irq    = os_irq_create();    
     //pgm_data->dev_id = dev_id;
-	pgm_data->dev_id = CAN_DEV_0; // use FT for scan - vers. 1_04 - 04_04_2018
+	//pgm_data->dev_id = CAN_DEV_0; // use FT for scan - vers. 1_04 - 04_04_2018
+	pgm_data->dev_id = CAN_DEV_OBD; // 1.02: canalul OBD (CAN_DEV_1 cu CAN-urile inversate)
     
     pgm_req_open();
     

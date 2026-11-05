@@ -11,6 +11,30 @@ descrisa mai jos.
 
 ---
 
+## v1.02 - VW08EU, CAN-uri inversate (2026-11-05)
+
+**Livrabile: `403.vw08eu.1_02.enc` (243.190 B) si `933.vw08eu.1_02.enc`
+(591.935 B).** PGM activ (`DEBUG_SKIP_PGM 0`), ca in 1.01.
+
+Aceeasi schimbare ca in VW07EU 1.02 (`8cb0a4c` din `can.vw07eu`): pozele din
+manualul de instalare au CAN0 si CAN1 inversate, manualul nu se reface, iar
+firmware-ul se adapteaza pozelor. Patch-ul VW07EU aplicat 1:1 pe cele patru
+fisiere (`detect.h` si `vw06_scan_pgm2_NEW.c` erau identice cu VW07EU 1.01;
+`fw_init.c` difera numai prin takeover, in alta functie):
+
+| | 1.01 | 1.02 |
+|---|---|---|
+| magistrala vehiculului (BCM) | `CAN_DEV_1` = Tan / Tan-Black (transceiver HS) | `CAN_DEV_0` = Orange/Green, Orange/Brown (transceiver FT, 500K) |
+| OBD si scanarea PGM | `CAN_DEV_0` = portocaliu | `CAN_DEV_1` = Tan / Tan-Black |
+
+Numai FW, CORE neatins. Verificat in `fw_db3_release.axf` si `fw_ds4_release.axf`:
+`vw06_scan_NEW_pgm2` scrie 0 in `dev_id` (pe LPC176x `CAN_DEV_1` = 0, deci OBD) si
+takeover-ul VW08EU e intact (`MOVS r0,#8` in `fw_options_set`).
+
+**Test:** VW07EU 1.01.02 (aceeasi inversare, fara PGM) OK pe banc la Adrian,
+05.11.2026. VW08EU 1.02 inca netestat; PGM-ul pe noul canal netestat pe masina.
+Sterge NVFS-ul la flash: detectia salvata tine minte canalul vechi.
+
 ## v1.01 - VW08EU, usa sofer / celelalte usi separat pe D2D (2026-10-26)
 
 **Livrabile: `403.vw08eu.1_01.enc` (243.262 B) si `933.vw08eu.1_01.enc`

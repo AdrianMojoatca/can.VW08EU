@@ -12,6 +12,8 @@ facuta pe 28.09.2026. Codul e identic, cu o singura diferenta de comportament:
 
 | platforma | livrabil | stare |
 |---|---|---|
+| DB3 / 403 | `403.vw08eu.1_02.enc` | **RELEASE 1.02** (05.11.2026): **CAN-uri inversate** (ca VW07EU 1.02) - vehicul pe portocaliu, OBD / PGM pe Tan; PGM activ |
+| DS4 / 933 | `933.vw08eu.1_02.enc` | **RELEASE 1.02** (05.11.2026): **CAN-uri inversate** (ca VW07EU 1.02) - vehicul pe portocaliu, OBD / PGM pe Tan; PGM activ |
 | DB3 / 403 | `403.vw08eu.1_01.enc` | **RELEASE 1.01**, validat 26.10.2026: usa sofer / alte usi separat pe D2D (ca VW07EU 1.01), PGM activ |
 | DS4 / 933 | `933.vw08eu.1_01.enc` | **RELEASE 1.01**, validat 26.10.2026: usa sofer / alte usi separat pe D2D (ca VW07EU 1.01), PGM activ |
 | DB3 / 403 | `403.vw08eu.1_00.enc` | **RELEASE 1.00**, validat pe masina |
@@ -26,12 +28,19 @@ VW07EU**, mostenita aici.
 Versiunea de livrare e **`1.00`, fara sufix**. Sufixele `1.00.01` ... `1.00.03`
 au fost build-uri de inginerie si nu ajung pe site.
 
-Amindoua au `detect_pgm()` activ, **validat pe masina** - pe amindoua
-platformele si pe amindoua firmware-urile, VW07EU si VW08EU. **PGM-ul scaneaza pe `CAN_DEV_0`, adica pe
-perechea portocalie catre priza OBD II** - nu pe canalul vehiculului - iar in
-techsheet perechea aia e inca marcata `No Connection`. Fara ea legata (OBD II
-pinii 6 si 14), PGM-ul pare stricat din firmware. Detalii in
-`RELEASE_NOTES_DS4.md`.
+> **Din 1.02 CAN-urile sint inversate fata de 1.00 / 1.01** (pozele din manualul
+> de instalare au CAN-urile inversate, iar manualul nu se reface): magistrala
+> vehiculului e pe `CAN_DEV_0` = perechea portocalie, OBD-ul si PGM-ul pe
+> `CAN_DEV_1` = Tan / Tan-Black. Numai aliasurile din `com.lib.detect/detect.h`.
+> Ce scrie mai jos despre canale descrie 1.00 / 1.01.
+
+Toate au `detect_pgm()` activ. In 1.00 / 1.01, **validat pe masina** - pe amindoua
+platformele si pe amindoua firmware-urile, VW07EU si VW08EU - **PGM-ul scaneaza pe
+`CAN_DEV_0`, adica pe perechea portocalie catre priza OBD II** - nu pe canalul
+vehiculului - iar in techsheet perechea aia e inca marcata `No Connection`. **In
+1.02 scaneaza pe `CAN_DEV_1` (Tan / Tan-Black)**, inca netestat pe masina. Fara
+perechea de OBD legata (OBD II pinii 6 si 14), PGM-ul pare stricat din firmware.
+Detalii in `RELEASE_NOTES_DS4.md`.
 
 > **La flash se sterge NVFS-ul.** Valorile `FEAT_DEI_*` sint *default-uri*: se
 > scriu numai cind memoria e virgina, deci un reflash peste o NVFS scrisa
