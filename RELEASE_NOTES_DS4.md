@@ -32,7 +32,8 @@ Numai FW, CORE neatins. Verificat in `fw_db3_release.axf` si `fw_ds4_release.axf
 takeover-ul VW08EU e intact (`MOVS r0,#8` in `fw_options_set`).
 
 **Test:** VW07EU 1.01.02 (aceeasi inversare, fara PGM) OK pe banc la Adrian,
-05.11.2026. VW08EU 1.02 inca netestat; PGM-ul pe noul canal netestat pe masina.
+05.11.2026. **VW08EU 1.02 validat de Adrian pe banc (05.11.2026), cu PGM activ.**
+PGM-ul pe noul canal inca netestat pe masina.
 Sterge NVFS-ul la flash: detectia salvata tine minte canalul vechi.
 
 ## v1.01 - VW08EU, usa sofer / celelalte usi separat pe D2D (2026-10-26)
